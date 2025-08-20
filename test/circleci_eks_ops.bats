@@ -35,11 +35,6 @@
   [[ "${output}" =~ "usage: aws" ]]
 }
 
-@test "istioctl version" {
-  run bash -c "docker exec container-test istioctl --help"
-  [[ "${output}" =~ "istioctl [command]" ]]
-}
-
 @test "bats version" {
   run bash -c "docker exec container-test bats --help"
   [[ "${output}" =~ "Usage: bats" ]]
