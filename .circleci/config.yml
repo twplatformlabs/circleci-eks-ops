@@ -75,7 +75,7 @@ workflows:
           scout-scan: true
           bats-test: true
           bats-entry-point: /bin/bash
-          bats-test-path: test/circleci_eks-ops.bats
+          bats-test-path: test/circleci_eks_ops.bats
           filters: *on-each-run
 
       - executor-tools/releasex:
