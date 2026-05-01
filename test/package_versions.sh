@@ -10,7 +10,8 @@ bash -c "docker exec ${TEST_CONTAINER} kubectl version | head -n 1"
 bash -c "docker exec ${TEST_CONTAINER} kind version"
 bash -c "docker exec ${TEST_CONTAINER} flux --version"
 bash -c "docker exec ${TEST_CONTAINER} argocd version --client --short"
-bash -c "docker exec ${TEST_CONTAINER} px version"
+RESULT=$(bash -c "docker exec ${TEST_CONTAINER} px version")
+echo "Pixie CLI ${RESULT}"
 RESULT=$(bash -c "docker exec ${TEST_CONTAINER} helm version --short")
 echo "helm ${RESULT}"
 RESULT=$(bash -c "docker exec ${TEST_CONTAINER} checkov --version")
