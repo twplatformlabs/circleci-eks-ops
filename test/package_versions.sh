@@ -6,9 +6,10 @@ if [[ -z "${TEST_CONTAINER}" ]]; then
 fi
 
 bash -c "docker exec ${TEST_CONTAINER} aws --version"
-bash -c "docker exec ${TEST_CONTAINER} kubectl version | head -n 1"
+RESULT=$(bash -c "docker exec ${TEST_CONTAINER} kubectl version | head -n 1")
+echo "kubectl ${RESULT}"
 bash -c "docker exec ${TEST_CONTAINER} kind version"
-RESULT=$(sudo karmadactl version | grep -oP '(?<=GitVersion:")[^"]+')
+RESULT=$(sudo karmadactl version | sed -n 's/.*GitVersion:"\([^"]*\)".*/\1/p')
 echo "karmadactl ${RESULT}"
 bash -c "docker exec ${TEST_CONTAINER} flux --version"
 bash -c "docker exec ${TEST_CONTAINER} argocd version --client --short"
