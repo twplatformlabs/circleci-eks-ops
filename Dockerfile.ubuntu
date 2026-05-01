@@ -32,12 +32,12 @@ RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
              awspec \
              nokogiri \
              json && \
+    sudo bash -c "curl -LO https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
+    sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl && rm kubectl && \
     download_url=$(curl -s "https://api.github.com/repos/kubernetes-sigs/kind/releases/latest" | jq -r ".assets[] | select(.name == \"kind-linux-amd64\") | .browser_download_url") && \
     curl -Lo ./kind "${download_url}" && \
     sudo chmod +x ./kind && \
     sudo mv ./kind /usr/local/bin/kind && \
-    sudo bash -c "curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl" && \
-    sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl && rm kubectl && \
     sudo bash -c "curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash" && \
     curl -o px https://storage.googleapis.com/pixie-dev-public/cli/latest/cli_linux_amd64 && \
     chmod +x px && sudo mv px /usr/local/bin/px && \
@@ -51,7 +51,9 @@ RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
     sudo mv ./circlepipe/circlepipe /usr/local/bin/circlepipe && \
     sudo rm -rf ./circlepipe circlepipe_Linux_amd64.tar.gz && \
     curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh -s -- -b /usr/local/bin && \
-    curl -s https://raw.githubusercontent.com/karmada-io/karmada/master/hack/install-cli.sh | sudo bash
+    download_url=$(curl -s https://api.github.com/repos/karmada-io/karmada/releases/latest | jq -r '.assets[] | select(.name == "karmadactl-linux-amd64.tgz") | .browser_download_url') && \
+    curl -LO "${download_url}" && \
+    sudo tar  --extract --gzip --file=karmadactl-linux-amd64.tgz -C /usr/local/bin karmadactl && sudo chmod +x /usr/local/bin/karmadactl
 
 USER circleci
 
