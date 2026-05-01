@@ -8,6 +8,8 @@ fi
 bash -c "docker exec ${TEST_CONTAINER} aws --version"
 bash -c "docker exec ${TEST_CONTAINER} kubectl version | head -n 1"
 bash -c "docker exec ${TEST_CONTAINER} kind version"
+RESULT=$(sudo karmadactl version | grep -oP '(?<=GitVersion:")[^"]+')
+echo "karmadactl ${RESULT}"
 bash -c "docker exec ${TEST_CONTAINER} flux --version"
 bash -c "docker exec ${TEST_CONTAINER} argocd version --client --short"
 RESULT=$(bash -c "docker exec ${TEST_CONTAINER} px version")
