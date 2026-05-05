@@ -53,7 +53,8 @@ RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
     curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh -s -- -b /usr/local/bin && \
     download_url=$(curl -s https://api.github.com/repos/karmada-io/karmada/releases/latest | jq -r '.assets[] | select(.name == "karmadactl-linux-amd64.tgz") | .browser_download_url') && \
     curl -LO "${download_url}" && \
-    sudo tar  --extract --gzip --file=karmadactl-linux-amd64.tgz -C /usr/local/bin karmadactl && sudo chmod +x /usr/local/bin/karmadactl
+    sudo tar  --extract --gzip --file=karmadactl-linux-amd64.tgz -C /usr/local/bin karmadactl && \
+    sudo chmod +x /usr/local/bin/karmadactl && rm karmadactl-linux-amd64.tgz
 
 USER circleci
 
