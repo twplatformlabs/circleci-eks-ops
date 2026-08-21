@@ -83,3 +83,8 @@ setup() {
   run bash -c "docker exec ${TEST_CONTAINER} px --help"
   [[ "${output}" =~ "px [command]" ]]
 }
+
+@test "yq version" {
+  run bash -c "docker exec ${TEST_CONTAINER} yq --help"
+  [[ "${output}" =~ "Usage:" ]]
+}
