@@ -62,6 +62,7 @@ RUN sudo apk add --no-cache \
     sudo tar  --extract --gzip --file=karmadactl-linux-amd64.tgz -C /usr/local/bin karmadactl && \
     sudo chmod +x /usr/local/bin/karmadactl && rm karmadactl-linux-amd64.tgz
 
+# hadolint ignore=DL3066
 USER circleci
 
 WORKDIR /home/circleci/project
