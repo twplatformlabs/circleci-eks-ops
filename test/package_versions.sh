@@ -26,3 +26,4 @@ RESULT=$(bash -c "docker exec ${TEST_CONTAINER} trivy --version | grep Version")
 echo "trivy ${RESULT}"
 bash -c "docker exec ${TEST_CONTAINER} python -V"
 bash -c "docker exec ${TEST_CONTAINER} ruby -v"
+bash -c "docker exec ${TEST_CONTAINER} yq --version"
